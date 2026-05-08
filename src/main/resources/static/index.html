@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="app-shell">
+    <section class="toolbar">
+        <div>
+            <h1>Clientes</h1>
+            <p>Cadastro, consulta e acompanhamento</p>
+        </div>
+        <form class="search-form" id="searchForm">
+            <input id="searchInput" type="search" placeholder="Buscar por nome, e-mail, CPF ou telefone">
+            <select id="statusFilter">
+                <option value="">Todos</option>
+                <option value="true">Ativos</option>
+                <option value="false">Inativos</option>
+            </select>
+            <button type="submit">Buscar</button>
+            <button type="button" id="clearSearchButton">Limpar</button>
+        </form>
+    </section>
+
+    <section class="summary-grid">
+        <div class="summary-item">
+            <span>Total</span>
+            <strong id="totalClientes">0</strong>
+        </div>
+        <div class="summary-item">
+            <span>Ativos</span>
+            <strong id="clientesAtivos">0</strong>
+        </div>
+        <div class="summary-item">
+            <span>Inativos</span>
+            <strong id="clientesInativos">0</strong>
+        </div>
+    </section>
+
+    <section class="content-grid">
+        <form class="panel form-panel" id="clienteForm">
+            <input type="hidden" id="clienteId">
+
+            <div class="panel-header">
+                <h2 id="formTitle">Novo cliente</h2>
+                <button type="button" id="cancelEditButton" class="secondary hidden">Cancelar</button>
+            </div>
+
+            <label>
+                Nome
+                <input id="nome" type="text" required>
+            </label>
+
+            <label>
+                E-mail
+                <input id="email" type="email" required>
+            </label>
+
+            <label>
+                Telefone
+                <input id="telefone" type="text" required>
+            </label>
+
+            <label>
+                CPF
+                <input id="cpf" type="text" required>
+            </label>
+
+            <label>
+                Endereco
+                <input id="endereco" type="text" required>
+            </label>
+
+            <label>
+                Observacoes
+                <textarea id="observacoes" rows="4"></textarea>
+            </label>
+
+            <button type="submit" id="submitButton">Salvar cliente</button>
+        </form>
+
+        <section class="panel table-panel">
+            <div class="panel-header">
+                <h2>Lista de clientes</h2>
+                <span id="statusText">Carregando...</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>CPF</th>
+                        <th>Endereco</th>
+                        <th>Status</th>
+                        <th>Atualizado</th>
+                        <th>Acoes</th>
+                    </tr>
+                    </thead>
+                    <tbody id="clientesBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

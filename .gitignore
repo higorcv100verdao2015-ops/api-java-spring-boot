@@ -1,0 +1,14 @@
+target/
+apache-maven-*/
+apache-maven-*.zip
+
+data/
+*.log
+*.trace.db
+*.mv.db
+
+.idea/
+*.iml
+
+.DS_Store
+Thumbs.db
