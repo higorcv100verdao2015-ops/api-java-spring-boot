@@ -28,6 +28,8 @@ public class ApplicationTutorial {
             return;
         }
 
+        databaseUrl = sanitizeDatabaseUrl(databaseUrl);
+
         if (databaseUrl.startsWith("jdbc:postgresql://")) {
             System.setProperty("spring.datasource.url", databaseUrl);
             return;
@@ -40,7 +42,7 @@ public class ApplicationTutorial {
         URI uri = URI.create(databaseUrl);
         String database = uri.getPath() == null ? "" : uri.getPath();
         String query = uri.getRawQuery();
-        String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + uri.getPort() + database;
+        String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + (uri.getPort() > 0 ? ":" + uri.getPort() : "") + database;
 
         if (query != null && !query.isBlank()) {
             jdbcUrl += "?" + query;
@@ -74,5 +76,9 @@ public class ApplicationTutorial {
         }
 
         return null;
+    }
+
+    private static String sanitizeDatabaseUrl(String databaseUrl) {
+        return databaseUrl.trim().replace("\r", "").replace("\n", "");
     }
 }
