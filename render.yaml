@@ -5,10 +5,18 @@ services:
     plan: free
     healthCheckPath: /clientes
     envVars:
-      - key: DATABASE_URL
+      - key: DB_HOST
         fromDatabase:
           name: clientes-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: clientes-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: clientes-db
+          property: database
       - key: DB_USERNAME
         fromDatabase:
           name: clientes-db
