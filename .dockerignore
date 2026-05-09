@@ -1,15 +1,11 @@
 target/
 apache-maven-*/
 apache-maven-*.zip
-
 data/
 *.log
 *.trace.db
 *.mv.db
-.env
-
+.git/
 .idea/
 *.iml
-
-.DS_Store
-Thumbs.db
+.env
