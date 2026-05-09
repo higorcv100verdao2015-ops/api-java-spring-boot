@@ -24,6 +24,8 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
             return;
         }
 
+        databaseUrl = sanitizeDatabaseUrl(databaseUrl);
+
         if (databaseUrl.startsWith("jdbc:postgresql://")) {
             Map<String, Object> properties = new HashMap<>();
             properties.put("spring.datasource.url", databaseUrl);
@@ -38,7 +40,7 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
         URI uri = URI.create(databaseUrl);
         String database = uri.getPath() == null ? "" : uri.getPath();
         String query = uri.getRawQuery();
-        String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + uri.getPort() + database;
+        String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + (uri.getPort() > 0 ? ":" + uri.getPort() : "") + database;
 
         if (query != null && !query.isBlank()) {
             jdbcUrl += "?" + query;
@@ -66,5 +68,9 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
     @Override
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;
+    }
+
+    private static String sanitizeDatabaseUrl(String databaseUrl) {
+        return databaseUrl.trim().replace("\r", "").replace("\n", "");
     }
 }
