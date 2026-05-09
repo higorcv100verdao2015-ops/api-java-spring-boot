@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.company.nomeprojeto.config.RenderDatabaseUrlEnvironmentPostProcessor

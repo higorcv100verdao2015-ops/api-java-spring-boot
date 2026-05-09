@@ -13,4 +13,4 @@ COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "if [ -z \"$DB_URL\" ] && [ -n \"$DATABASE_URL\" ]; then clean_url=${DATABASE_URL#postgresql://}; host_path=${clean_url#*@}; host_path=${host_path%%\\?*}; export DB_URL=\"jdbc:postgresql://$host_path\"; fi; java -jar app.jar"]
+CMD ["java", "-jar", "app.jar"]
