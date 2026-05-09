@@ -21,6 +21,10 @@ public class ApplicationTutorial {
         String databaseUrl = firstNonBlank(System.getenv("JDBC_DATABASE_URL"), System.getenv("DATABASE_URL"));
 
         if (databaseUrl == null) {
+            if (System.getenv("RENDER") != null) {
+                throw new IllegalStateException("Configure DATABASE_URL ou JDBC_DATABASE_URL no Render com a URL do PostgreSQL.");
+            }
+
             return;
         }
 
