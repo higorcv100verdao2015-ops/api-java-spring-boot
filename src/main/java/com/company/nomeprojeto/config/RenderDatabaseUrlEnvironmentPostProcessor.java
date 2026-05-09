@@ -17,6 +17,17 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
         String databaseUrl = environment.getProperty("DATABASE_URL");
 
         if (databaseUrl == null || databaseUrl.isBlank()) {
+            databaseUrl = environment.getProperty("JDBC_DATABASE_URL");
+        }
+
+        if (databaseUrl == null || databaseUrl.isBlank()) {
+            return;
+        }
+
+        if (databaseUrl.startsWith("jdbc:postgresql://")) {
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("spring.datasource.url", databaseUrl);
+            environment.getPropertySources().addFirst(new MapPropertySource("renderDatabaseUrl", properties));
             return;
         }
 
